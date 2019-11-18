@@ -1,4 +1,5 @@
 .DS_Store
 */.DS_Store
 .idea
-./__pycache__
+__pycache__
+command_cifar.md
