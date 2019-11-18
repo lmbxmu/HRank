@@ -14,18 +14,25 @@ def conv3x3(in_planes, out_planes, stride=1):
 class ResBottleneck(nn.Module):
     expansion = 4
 
-    def __init__(self, inplanes, planes, stride=1, downsample=None):
+    def __init__(self, inplanes, planes, stride=1, downsample=None, cp_rate=[0.], tmp_name=None):
         super(ResBottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
+        self.conv1.cp_rate = cp_rate[0]
+        self.conv1.tmp_name = tmp_name
         self.bn1 = nn.BatchNorm2d(planes)
         self.relu1 = nn.ReLU(inplace=True)
 
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
+        self.conv2.cp_rate = cp_rate[1]
+        self.conv2.tmp_name = tmp_name
         self.relu2 = nn.ReLU(inplace=True)
 
         self.conv3 = nn.Conv2d(planes, planes * self.expansion, kernel_size=1, bias=False)
+        self.conv3.cp_rate = cp_rate[2]
+        self.conv3.tmp_name = tmp_name
+
         self.bn3 = nn.BatchNorm2d(planes * self.expansion)
         self.relu3 = nn.ReLU(inplace=True)
 
@@ -34,7 +41,7 @@ class ResBottleneck(nn.Module):
 
     def forward(self, x):
         residual = x
-        
+
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu1(out)
@@ -75,14 +82,24 @@ class ResNet(nn.Module):
         self.num_blocks = num_blocks
 
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.conv1.cp_rate = compress_rate[0]
+        self.conv1.tmp_name = 'conv1'
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
-        self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
-        self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
-        self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2)
-        self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=2)
+        self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1,
+                                       cp_rate=compress_rate[1:3*num_blocks[0]+2],
+                                       tmp_name='layer1')
+        self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2,
+                                       cp_rate=compress_rate[3*num_blocks[0]+2:3*num_blocks[0]+3*num_blocks[1]+3],
+                                       tmp_name='layer2')
+        self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2,
+                                       cp_rate=compress_rate[3*num_blocks[0]+3*num_blocks[1]+3:3*num_blocks[0]+3*num_blocks[1]+3*num_blocks[2]+4],
+                                       tmp_name='layer3')
+        self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=2,
+                                       cp_rate=compress_rate[3*num_blocks[0]+3*num_blocks[1]+3*num_blocks[2]+4:],
+                                       tmp_name='layer4')
 
         self.avgpool = nn.AvgPool2d(7, stride=1)
         self.fc = nn.Linear(512 * block.expansion, num_classes)
@@ -94,22 +111,26 @@ class ResNet(nn.Module):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
 
-    def _make_layer(self, block, planes, blocks, stride):
+    def _make_layer(self, block, planes, blocks, stride, cp_rate, tmp_name):
         downsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
             conv_short = nn.Conv2d(self.inplanes, planes * block.expansion,
-                          kernel_size=1, stride=stride, bias=False)
+                                   kernel_size=1, stride=stride, bias=False)
+            conv_short.cp_rate = cp_rate[0]
+            conv_short.tmp_name = tmp_name + '_shortcut'
             downsample = nn.Sequential(
                 conv_short,
                 nn.BatchNorm2d(planes * block.expansion),
             )
 
         layers = []
-        layers.append(block(self.inplanes, planes, stride, downsample))
+        layers.append(block(self.inplanes, planes, stride, downsample, cp_rate=cp_rate[1:4],
+                            tmp_name=tmp_name + '_block' + str(1)))
 
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
-            layers.append(block(self.inplanes, planes))
+            layers.append(block(self.inplanes, planes, cp_rate=cp_rate[3 * i + 1:3 * i + 4],
+                                tmp_name=tmp_name + '_block' + str(i + 1)))
 
         return nn.Sequential(*layers)
 
@@ -140,6 +161,6 @@ class ResNet(nn.Module):
 
 
 def resnet_50(compress_rate=None):
-    cov_cfg = [(3 * i + 3) for i in range(3*3+1 + 4*3+1 + 6*3+1 + 3*3+1 + 1)]
+    cov_cfg = [(3*i + 3) for i in range(3*3 + 1 + 4*3 + 1 + 6*3 + 1 + 3*3 + 1 + 1)]
     model = ResNet(ResBottleneck, [3, 4, 6, 3], covcfg=cov_cfg, compress_rate=compress_rate)
     return model

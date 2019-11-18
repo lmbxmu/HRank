@@ -1,8 +1,6 @@
 
 import math
-
 import torch.nn as nn
-
 from collections import OrderedDict
 
 
@@ -14,7 +12,7 @@ convcfg = [0, 3, 7, 10, 14, 17, 20, 24, 27, 30, 34, 37]
 
 
 class VGG(nn.Module):
-    def __init__(self, num_classes = 10, init_weights=True, cfg=None, compress_rate=None):
+    def __init__(self, num_classes=10, init_weights=True, cfg=None, compress_rate=None):
         super(VGG, self).__init__()
         self.features = nn.Sequential()
 
@@ -22,27 +20,30 @@ class VGG(nn.Module):
             cfg = defaultcfg
 
         self.relucfg = relucfg
-        self.covcfg = convcfg
+        self.convcfg = convcfg
         self.compress_rate = compress_rate
-        self.features = self.make_layers(cfg[:-1])
+        self.features = self.make_layers(cfg[:-1], True, compress_rate)
         self.classifier = nn.Sequential(OrderedDict([
             ('linear1', nn.Linear(cfg[-2], cfg[-1])),
             ('norm1', nn.BatchNorm1d(cfg[-1])),
             ('relu1', nn.ReLU(inplace=True)),
             ('linear2', nn.Linear(cfg[-1], num_classes)),
         ]))
-        
+
         if init_weights:
             self._initialize_weights()
 
-    def make_layers(self, cfg):
+    def make_layers(self, cfg, batch_norm=True, compress_rate=None):
         layers = nn.Sequential()
         in_channels = 3
+        cnt = 0
         for i, v in enumerate(cfg):
             if v == 'M':
                 layers.add_module('pool%d' % i, nn.MaxPool2d(kernel_size=2, stride=2))
             else:
                 conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+                conv2d.cp_rate = compress_rate[cnt]
+                cnt += 1
 
                 layers.add_module('conv%d' % i, conv2d)
                 layers.add_module('norm%d' % i, nn.BatchNorm2d(v))
@@ -52,13 +53,11 @@ class VGG(nn.Module):
         return layers
 
     def forward(self, x):
-
-        x=self.features(x)
+        x = self.features(x)
 
         x = nn.AvgPool2d(2)(x)
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
-
         return x
 
     def _initialize_weights(self):
