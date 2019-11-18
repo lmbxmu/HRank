@@ -3,3 +3,4 @@
 .idea
 __pycache__
 command_cifar.md
+models/__pycache__
