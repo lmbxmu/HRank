@@ -139,6 +139,16 @@ if args.compress_rate:
         cprate+=[float(find_cprate[0])]*num
 
     compress_rate=cprate
+else:
+    default_cprate={
+        'vgg_16_bn': [0.7]*7+[0.1]*6,
+        'densenet_40': [0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*5+[0.0],
+        'googlenet': [0.10]+[0.7]+[0.5]+[0.8]*4+[0.5]+[0.6]*2,
+        'resnet_50':[0.2]+[0.8]*10+[0.8]*13+[0.55]*19+[0.45]*10,
+        'resnet_56':[0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4],
+        'resnet_110':[0.1]+[0.40]*36+[0.40]*36+[0.4]*36
+    }
+    compress_rate=default_cprate[args.arch]
 
 # Model
 print('==> Building model..')
