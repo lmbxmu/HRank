@@ -21,7 +21,7 @@ Neural network pruning offers a promising prospect to facilitate deploying deep 
 In this code, you can run our models on CIFAR10 and ImageNet dataset. The code has been tested by Python 3.6, Pytorch 1.0 and **CUDA 9.2???** on Ubuntu 16.04.
 
 
-###Rank Generation
+### Rank Generation
 
 ```shell
 python rank_generation.py \
@@ -38,7 +38,7 @@ python rank_generation.py \
 
 For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rates of every layer as belows:
 
-#####1. VGG-16
+##### 1. VGG-16
 
 |  Params      | Flops         | Accuracy |
 |--------------|---------------|----------|
@@ -53,7 +53,7 @@ python main.py \
 --compress_rate [0.7]*7+[0.1]*6 \
 --gpu [gpu_id]
 ```
-#####2. ResNet56
+##### 2. ResNet56
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
@@ -68,7 +68,7 @@ python main.py \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4] \
 --gpu [gpu_id]
 ```
-#####3. ResNet110
+##### 3. ResNet110
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
@@ -83,7 +83,7 @@ python main.py \
 --compress_rate [0.1]+[0.40]*36+[0.40]*36+[0.4]*36 \
 --gpu [gpu_id]
 ```
-#####4. DenseNet40
+##### 4. DenseNet40
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
@@ -98,7 +98,7 @@ python main.py \
 --compress_rate [0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*5+[0.0] \
 --gpu [gpu_id]
 ```
-#####5. GoogLeNet
+##### 5. GoogLeNet
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
@@ -113,7 +113,7 @@ python main.py \
 --compress_rate [0.10]+[0.7]+[0.5]+[0.8]*4+[0.5]+[0.6]*2 \
 --gpu [gpu_id]
 ```
-#####6. ResNet50
+##### 6. ResNet50
 
 |  Params | Flops| Acc Top1 |Acc Top5 |
 |---------|------|----------|----------|
@@ -143,20 +143,20 @@ After training, checkpoints and loggers can be found in the `job_dir`. The prune
 
 
 
-##Pre-trained Models 
+## Pre-trained Models 
 
 Additionally, we provide several pre-trained models used in our experiments. 
 
 **(link unfinished!!!!!!!!!)**
 
-###Cifar10:
+### Cifar10:
 [Vgg-16](https://drive.google.com/open?id=1pnMmLEWAUjVfqFUHanFlps6fSu10UYc1) 
 |[ResNet56](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T) 
 | [ResNet110](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T) 
 | [DenseNet-40](https://drive.google.com/open?id=1Ev0SH14lWB5QuyPWLbbUEwGhVJ68tPkb) 
 | [GoogleNet](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX) 
 
-###ImageNet:
+### ImageNet:
 [ResNet50](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX)
 
 
