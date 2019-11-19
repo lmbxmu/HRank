@@ -147,7 +147,6 @@ After training, checkpoints and loggers can be found in the `job_dir`. The prune
 
 Additionally, we provide several pre-trained models used in our experiments. 
 
-**(link unfinished!!!!!!!!!)**
 
 ### Cifar10:
  [Vgg-16](https://drive.google.com/open?id=1i3ifLh70y1nb8d4mazNzyC4I27jQcHrE) 
