@@ -96,11 +96,11 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-cudnn.benchmark = True
+#os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 if len(args.gpu)==1:
-    device = torch.device("cuda:"+args.gpu if torch.cuda.is_available() else "cpu")
+    #device = torch.device("cuda:"+args.gpu if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda")
 else:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -171,6 +171,7 @@ if len(args.gpu)>1 and torch.cuda.is_available():
         device_id.append(i)
     net = torch.nn.DataParallel(net, device_ids=device_id)
 
+cudnn.benchmark = True
 print(net)
 
 if len(args.gpu)>1:
@@ -264,6 +265,15 @@ param_per_cov_dic={
     'resnet_110':3
 }
 
+ori_gpu_of_arch={
+    'vgg_16_bn': 'cuda:1',
+    'densenet_40': 'cuda:0',
+    'googlenet': 'cuda:0',
+    'resnet_50':3,
+    'resnet_56':'cuda:0',
+    'resnet_110':'cuda:0'
+}
+
 if len(args.gpu)>1:
     print_logger.info('compress rate: ' + str(net.module.compress_rate))
 else:
@@ -280,19 +290,23 @@ for cov_id in range(args.start_cov, len(convcfg)):
 
     if cov_id == 0:
         if len(args.gpu)==1:
-            pruned_checkpoint = torch.load(args.resume, map_location='cuda:' + args.gpu)
+            pruned_checkpoint = torch.load(args.resume, map_location='cuda' + args.gpu)
         else:
             pruned_checkpoint = torch.load(args.resume)
         from collections import OrderedDict
 
         new_state_dict = OrderedDict()
         if args.adjust_prune_ckpt:
-            if len(args.gpu) > 1:
-                for k, v in pruned_checkpoint.items():
-                    #new_state_dict[k.replace('module.', '')] = v
-                    new_state_dict['module.' + k] = v
+            if args.arch == 'resnet_50':
+                tmp_ckpt = pruned_checkpoint
             else:
-                for k, v in pruned_checkpoint['state_dict'].items():
+                tmp_ckpt = pruned_checkpoint['state_dict']
+
+            if len(args.gpu) > 1:
+                for k, v in tmp_ckpt.items():
+                    new_state_dict['module.' + k.replace('module.', '')] = v
+            else:
+                for k, v in tmp_ckpt.items():
                     new_state_dict[k.replace('module.', '')] = v
         else:
             new_state_dict = pruned_checkpoint['state_dict']

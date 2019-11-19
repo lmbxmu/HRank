@@ -73,7 +73,6 @@ class mask_resnet_56:
 
         if resume:
             with open(resume, 'rb') as f:
-                print('device:',self.device)
                 self.mask = pickle.load(f)
         else:
             resume=self.job_dir+'/mask'

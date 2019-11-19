@@ -20,7 +20,7 @@ class VGG(nn.Module):
             cfg = defaultcfg
 
         self.relucfg = relucfg
-        self.convcfg = convcfg
+        self.covcfg = convcfg
         self.compress_rate = compress_rate
         self.features = self.make_layers(cfg[:-1], True, compress_rate)
         self.classifier = nn.Sequential(OrderedDict([

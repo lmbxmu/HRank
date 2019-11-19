@@ -4,7 +4,7 @@ PyTorch implementation for HRank.
 
 
 
-![framework](link)
+![framework.png](link)
 
 An illustration of HRank. As shown in the left column, we first use test images to run through the convolutional layers to get the feature map. Then we estimate the rank of the feature maps, which is used as the criteria for filter pruning, as shown in the middle subfigure. The right subfigure illustrates the pruning process (the red filters), and fine-tuning process, in which the green filters are updated and the blue filters are frozen. 
 
@@ -18,7 +18,7 @@ Neural network pruning offers a promising prospect to facilitate deploying deep 
 
 ## Running Code
 
-In this code, you can run our models on CIFAR10 and ImageNet dataset. The code has been tested by Python 3.6, Pytorch 1.0 and **CUDA 9.2???** on Ubuntu 16.04.
+In this code, you can run our models on CIFAR10 and ImageNet dataset. The code has been tested by Python 3.6, Pytorch 1.0 and CUDA 9.0 on Ubuntu 16.04.
 
 
 ### Rank Generation
@@ -28,7 +28,7 @@ python rank_generation.py \
 --resume [pre-trained model dir] \
 --arch [model arch name] \
 --limit [batch numbers] \
---gpu  [gpu_id]
+--gpu [gpu_id]
 
 ```
 
@@ -120,7 +120,7 @@ python main.py \
 | 13.77M  |1.55B |    73.29%| 91.74% |
 
 ```shell
-CUDA_VISIBLE_DEVICES=[gpu_id] python main.py \
+python main.py \
 --dataset imagenet \
 --data_dir [ImageNet dataset dir] \
 --job_dir./result/resnet_50/[folder name] \
@@ -128,7 +128,7 @@ CUDA_VISIBLE_DEVICES=[gpu_id] python main.py \
 --adjust_prune_ckpt \
 --arch resnet_50 \
 --compress_rate [0.2]+[0.8]*10+[0.8]*13+[0.55]*19+[0.45]*10 \
---gpu 0,1,2
+--gpu [gpu_id]
 ```
 
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
@@ -150,17 +150,17 @@ Additionally, we provide several pre-trained models used in our experiments.
 **(link unfinished!!!!!!!!!)**
 
 ### Cifar10:
-[Vgg-16](https://drive.google.com/open?id=1pnMmLEWAUjVfqFUHanFlps6fSu10UYc1) 
-|[ResNet56](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T) 
-| [ResNet110](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T) 
-| [DenseNet-40](https://drive.google.com/open?id=1Ev0SH14lWB5QuyPWLbbUEwGhVJ68tPkb) 
-| [GoogleNet](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX) 
+   [Vgg-16](https://drive.google.com/open?id=1pnMmLEWAUjVfqFUHanFlps6fSu10UYc1)   
+|   [ResNet56](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T)   
+|   [ResNet110](https://drive.google.com/open?id=1XHNxyFklGjvzNpTjzlkjpKc61-LLjt5T)   
+|   [DenseNet-40](https://drive.google.com/open?id=1Ev0SH14lWB5QuyPWLbbUEwGhVJ68tPkb)   
+|   [GoogleNet](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX)   
 
 ### ImageNet:
-[ResNet50](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX)
+   [ResNet50](https://drive.google.com/open?id=1tLZHnycQc4oAJhZ4JNYET_xHwR9mcdZX)
 
 
 
 ## Tips
 
-If you find any problems, please feel free to contact to the authors (nobody1@gmail.com or nobody2@gmail.com).
+If you find any problems, please feel free to contact to the authors (lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com).
