@@ -1,6 +1,6 @@
 # HRank: Filter Pruning using High-Rank Feature Map
 
-PyTorch implementation for HRank.
+PyTorch implementation of HRank.
 
 
 
@@ -22,7 +22,7 @@ If you find GAL useful in your research, please consider citing:
   title     = {HRank: Filter Pruning using High-Rank Feature Map},
   author    = {Mingbao Lin, Rongrong Ji, Yan Wang, Yichen Zhang, Baochang Zhang, Yonghong Tian, Ling Shao.},
   booktitle = { },
-  year      = {2010}
+  year      = {2020}
 }
 ```
 
