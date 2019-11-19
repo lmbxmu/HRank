@@ -4,7 +4,7 @@ PyTorch implementation for HRank.
 
 
 
-![HRank-framework](https://raw.githubusercontent.com/lmbxmu/HRank/master/framework.png?token=AHCABUC4W6KEVPZTOUMKHA252PFS6)
+![HRank-framework](https://raw.githubusercontent.com/lmbxmu/HRank/master/framework.png?token=AHCABUCAV4ATDFWXGJU5KU252PGS6)
 
 An illustration of HRank. As shown in the left column, we first use test images to run through the convolutional layers to get the feature map. Then we estimate the rank of the feature maps, which is used as the criteria for filter pruning, as shown in the middle subfigure. The right subfigure illustrates the pruning process (the red filters), and fine-tuning process, in which the green filters are updated and the blue filters are frozen. 
 
