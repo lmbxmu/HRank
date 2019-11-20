@@ -32,12 +32,12 @@ parser.add_argument(
     '--lr',
     default=0.01,
     type=float,
-    help='learning rate')
+    help='initial learning rate')
 parser.add_argument(
     '--lr_decay_step',
     default='5,10',
     type=str,
-    help='learning rate')
+    help='learning rate decay step')
 parser.add_argument(
     '--adjust_prune_ckpt',
     action='store_true',
@@ -51,7 +51,7 @@ parser.add_argument(
     '--resume_mask',
     type=str,
     default=None,
-    help='load the model from the specified checkpoint')
+    help='mask loading')
 parser.add_argument(
     '--gpu',
     type=str,
@@ -81,12 +81,12 @@ parser.add_argument(
     '--start_cov',
     type=int,
     default=0,
-    help='The num of cov to start prune')
+    help='The num of conv to start prune')
 parser.add_argument(
     '--compress_rate',
     type=str,
     default=None,
-    help='The num of cov to start prune')
+    help='compress rate of each conv')
 parser.add_argument(
     '--arch',
     type=str,
@@ -99,8 +99,7 @@ args = parser.parse_args()
 #os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 if len(args.gpu)==1:
-    #device = torch.device("cuda:"+args.gpu if torch.cuda.is_available() else "cpu")
-    device = torch.device("cuda")
+    device = torch.device("cuda:"+args.gpu if torch.cuda.is_available() else "cpu")
 else:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -265,15 +264,6 @@ param_per_cov_dic={
     'resnet_110':3
 }
 
-ori_gpu_of_arch={
-    'vgg_16_bn': 'cuda:1',
-    'densenet_40': 'cuda:0',
-    'googlenet': 'cuda:0',
-    'resnet_50':3,
-    'resnet_56':'cuda:0',
-    'resnet_110':'cuda:0'
-}
-
 if len(args.gpu)>1:
     print_logger.info('compress rate: ' + str(net.module.compress_rate))
 else:
@@ -289,6 +279,7 @@ for cov_id in range(args.start_cov, len(convcfg)):
     scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=lr_decay_step, gamma=0.1)
 
     if cov_id == 0:
+
         if len(args.gpu)==1:
             pruned_checkpoint = torch.load(args.resume, map_location='cuda' + args.gpu)
         else:
@@ -311,7 +302,7 @@ for cov_id in range(args.start_cov, len(convcfg)):
         else:
             new_state_dict = pruned_checkpoint['state_dict']
 
-        net.load_state_dict(new_state_dict)
+        net.load_state_dict(new_state_dict)#'''
     else:
         if args.arch=='resnet_50':
             skip_list=[1,5,8,11,15,18,21,24,28,31,34,37,40,43,47,50,53]

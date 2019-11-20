@@ -4,7 +4,7 @@ import argparse
 import get_flops
 from models import *
 
-parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
+parser = argparse.ArgumentParser(description='Calculating flops and params')
 
 parser.add_argument(
     '--input_image_size',
@@ -21,7 +21,7 @@ parser.add_argument(
     '--compress_rate',
     type=str,
     default=None,
-    help='The num of cov to start prune')
+    help='compress rate of each conv')
 args = parser.parse_args()
 
 device = torch.device("cpu")

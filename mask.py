@@ -1,10 +1,9 @@
+
 import torch
-from torch import nn
 import numpy as np
 
-import pdb
 import pickle
-import random
+
 
 class mask_vgg_16_bn:
     def __init__(self, model=None, compress_rate=[0.50], job_dir='',device=None):

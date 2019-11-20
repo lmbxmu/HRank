@@ -1,6 +1,5 @@
 
 import torch
-import torch.optim as optim
 import torch.backends.cudnn as cudnn
 
 import torchvision
@@ -14,7 +13,7 @@ from models import *
 from utils import progress_bar
 import numpy as np
 
-parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
+parser = argparse.ArgumentParser(description='Rank extraction')
 
 parser.add_argument(
     '--data_dir',
@@ -44,16 +43,6 @@ parser.add_argument(
     default=None,
     help='load the model from the specified checkpoint')
 parser.add_argument(
-    '--epochs',
-    type=int,
-    default=30,
-    help='The num of epochs to train.')
-parser.add_argument(
-    '--lr',
-    default=0.1,
-    type=float,
-    help='learning rate')
-parser.add_argument(
     '--limit',
     type=int,
     default=5,
@@ -68,12 +57,11 @@ parser.add_argument(
     type=int,
     default=100,
     help='Batch size for validation.')
-
 parser.add_argument(
     '--start_idx',
     type=int,
     default=0,
-    help='The num of epochs to train.')
+    help='The index of conv to start extract rank.')
 parser.add_argument(
     '--gpu',
     type=str,
@@ -87,7 +75,7 @@ parser.add_argument(
     '--compress_rate',
     type=str,
     default=None,
-    help='The num of cov to start prune')
+    help='compress rate of each conv')
 
 
 args = parser.parse_args()

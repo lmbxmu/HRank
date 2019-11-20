@@ -20,7 +20,7 @@ If you find GAL useful in your research, please consider citing:
 ```
 @inproceedings{lin2020hrank,   
   title     = {HRank: Filter Pruning using High-Rank Feature Map},
-  author    = {Mingbao Lin, Rongrong Ji, Yan Wang, Yichen Zhang, Baochang Zhang, Yonghong Tian, Ling Shao.},
+  author    = {Mingbao Lin, Rongrong Ji, Yan Wang, Yichen Zhang, Baochang Zhang, Yonghong Tian, and Ling Shao},
   booktitle = { },
   year      = {2020}
 }
@@ -140,6 +140,8 @@ python main.py \
 --compress_rate [0.2]+[0.8]*10+[0.8]*13+[0.55]*19+[0.45]*10 \
 --gpu [gpu_id]
 ```
+
+For multi-GPU training, make sure that CUDA\_VISIBLE\_DEVICES is being set at the very beginning.
 
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
 
