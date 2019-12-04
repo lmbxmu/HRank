@@ -156,7 +156,7 @@ optional arguments:
     				Optional: cifar10', imagenet
     --lr			initial learning rate
     				default: 0.01
---lr_decay_step			learning rate decay step
+	--lr_decay_step		learning rate decay step
 				default: 5,10
     --adjust_prune_ckpt		adjust ckpt from pruned checkpoint
     --resume			load the model from the specified checkpoint
@@ -172,7 +172,7 @@ optional arguments:
 				default: 100
     --start_cov			The num of conv to start prune
     				default: 0
-    --compress_rate 	compress rate of each conv
+    --compress_rate 		compress rate of each conv
     --arch			The architecture to prune
     				default: vgg_16_bn
 				Optional: resnet_50, vgg_16_bn, resnet_56, resnet_110, densenet_40, googlenet
