@@ -146,7 +146,37 @@ For multi-GPU training, make sure that CUDA\_VISIBLE\_DEVICES is being set at th
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
 
 
-
+## Other optional arguments
+```
+optional arguments:
+    --data_dir			dataset directory
+    					default='./data'
+    --dataset			dataset name
+    					default: cifar10
+    					Optional: cifar10', imagenet
+    --lr				initial learning rate
+    					default: 0.01
+	--lr_decay_step		learning rate decay step
+						default: 5,10
+    --adjust_prune_ckpt	adjust ckpt from pruned checkpoint
+    --resume			load the model from the specified checkpoint
+    --resume_mask		mask loading directory
+    --gpu				Select gpu to use
+    					default: 0
+    --job_dir			The directory where the summaries will be stored.
+    --epochs			The num of epochs to train.
+    					default: 30
+    --train_batch_size	Batch size for training.
+    					default: 128
+    --eval_batch_size	Batch size for validation. 
+						default: 100
+    --start_cov			The num of conv to start prune
+    					default: 0
+    --compress_rate 	compress rate of each conv
+    --arch				The architecture to prune
+    					default: vgg_16_bn
+						Optional: resnet_50, vgg_16_bn, resnet_56, resnet_110, densenet_40, googlenet
+```
 
 
 
