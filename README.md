@@ -156,7 +156,7 @@ optional arguments:
     				Optional: cifar10', imagenet
     --lr			initial learning rate
     				default: 0.01
-	--lr_decay_step		learning rate decay step
+    --lr_decay_step	learning rate decay step
 				default: 5,10
     --adjust_prune_ckpt		adjust ckpt from pruned checkpoint
     --resume			load the model from the specified checkpoint
