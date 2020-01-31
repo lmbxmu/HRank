@@ -204,4 +204,4 @@ Additionally, we provide several pre-trained models used in our experiments.
 
 ## Tips
 
-If you find any problems, please feel free to contact to the authors (lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com).
+Any problems, free to contact the authors (lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com).
