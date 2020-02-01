@@ -24,7 +24,7 @@ If you find HRank useful in your research, please consider citing:
 
 ## Running Code
 
-In this code, you can run our models on CIFAR10 and ImageNet dataset. The code has been tested by Python 3.6, Pytorch 1.0 and CUDA 9.0 on Ubuntu 16.04.
+In this code, you can run our models on CIFAR-10 and ImageNet dataset. The code has been tested by Python 3.6, Pytorch 1.0 and CUDA 9.0 on Ubuntu 16.04.
 
 
 ### Rank Generation
@@ -186,7 +186,7 @@ optional arguments:
 Additionally, we provide the pre-trained models used in our experiments. 
 
 
-### Cifar10:
+### CIFAR-10:
  [Vgg-16](https://drive.google.com/open?id=1i3ifLh70y1nb8d4mazNzyC4I27jQcHrE) 
 | [ResNet56](https://drive.google.com/open?id=1f1iSGvYFjSKIvzTko4fXFCbS-8dw556T) 
 | [ResNet110](https://drive.google.com/open?id=1uENM3S5D_IKvXB26b1BFwMzUpkOoA26m) 
