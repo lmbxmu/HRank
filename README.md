@@ -42,7 +42,7 @@ python rank_generation.py \
 
 ### Model Training
 
-For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rates of every layer as belows:
+For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rate of every layer as belows:
 
 ##### 1. VGG-16
 
