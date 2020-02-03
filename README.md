@@ -16,8 +16,8 @@ If you find HRank useful in your research, please consider citing:
 ```
 @inproceedings{lin2020hrank,   
   title     = {HRank: Filter Pruning using High-Rank Feature Map},
-  author    = {Mingbao Lin, Rongrong Ji, Yan Wang, Yichen Zhang, Baochang Zhang, Yonghong Tian, and Ling Shao},
-  booktitle = {},
+  author    = {Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Ling, Shao},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
   year      = {2020}
 }
 ```
