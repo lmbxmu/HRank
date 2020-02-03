@@ -4,7 +4,7 @@ PyTorch implementation of HRank.
 
 
 
-![HRank-framework](img/framework.png?raw=true)
+<div align=center><img src="img/framework.png" height = "50%" width = "60%"/></div>
 
 Framework of HRank. In the left column, we ﬁrst use images to run through the convolutional layers to get the feature maps. In the middle column, we then estimate the rank of each feature map, which is used as the criteria for pruning. The right column shows the pruning (the red ﬁlters), and ﬁne-tuning where the green ﬁlters are updated and the blue ﬁlters are frozen.
 
