@@ -123,7 +123,7 @@ python main.py \
 
 |  Params | Flops| Acc Top1 |Acc Top5 |
 |---------|------|----------|----------|
-| 13.77M  |1.55B |    73.29%| 91.74% |
+| 13.77M  |1.55B |    71.98%| 91.01% |
 
 ```shell
 python main.py \
