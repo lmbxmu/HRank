@@ -48,7 +48,7 @@ For the ease of reproducibility. we provide some of the experimental results and
 
 |  Params      | Flops         | Accuracy |
 |--------------|---------------|----------|
-| 2.51M(82.9%) | 145.61M(53.5%)| 93.43%   | 
+| 2.64M(82.1%) | 108.61M(65.3%)| 92.34%   | 
 
 ```shell
 python main.py \
@@ -56,7 +56,7 @@ python main.py \
 --resume [pre-trained model dir] \
 --adjust_prune_ckpt \
 --arch vgg_16_bn \
---compress_rate [0.7]*7+[0.1]*6 \
+--compress_rate [0.05]+[0.5]*6+[0.1]*4+[0.2]*2 \
 --gpu [gpu_id]
 ```
 ##### 2. ResNet56
@@ -108,7 +108,7 @@ python main.py \
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
-| 2.74M(54.9%) |  0.69B(55.4%)| 94.53%   | 
+| 1.86M(69.8%) |  0.45B(70.4%)| 94.07%   | 
 
 ```shell
 python main.py \
@@ -116,7 +116,7 @@ python main.py \
 --resume [pre-trained model dir] \
 --adjust_prune_ckpt \
 --arch googlenet \
---compress_rate [0.10]+[0.7]+[0.5]+[0.8]*4+[0.5]+[0.6]*2 \
+--compress_rate [0.10]+[0.8]*5+[0.85]+[0.8]*3 \
 --gpu [gpu_id]
 ```
 ##### 6. ResNet50
