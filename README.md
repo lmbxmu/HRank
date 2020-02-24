@@ -145,6 +145,13 @@ For multi-GPU training, make sure that CUDA\_VISIBLE\_DEVICES is being set at th
 
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
 
+### Get FLOPS & Params
+```shell
+python cal_flops_params.py \
+--arch resnet_56_convwise \
+--compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]
+```
+
 
 ## Other optional arguments
 ```
