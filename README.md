@@ -9,6 +9,10 @@ PyTorch implementation of HRank (CVPR 2020).
 Framework of HRank. In the left column, we ﬁrst use images to run through the convolutional layers to get the feature maps. In the middle column, we then estimate the rank of each feature map, which is used as the criteria for pruning. The right column shows the pruning (the red ﬁlters), and ﬁne-tuning where the green ﬁlters are updated and the blue ﬁlters are frozen.
 
 
+## Tips
+
+Any problem, please contact the authors via emails: lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com, or adding the first author's wechat as friends (id: lmbcxy if you are using wechat) for convenient communications.
+
 
 ## Citation
 If you find HRank useful in your research, please consider citing:
@@ -202,9 +206,3 @@ Additionally, we provide the pre-trained models used in our experiments.
 
 ### ImageNet:
  [ResNet50](https://drive.google.com/open?id=1OYpVB84BMU0y-KU7PdEPhbHwODmFvPbB)
-
-
-
-## Tips
-
-Any problem, please contact the authors via emails: lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com, or adding the first author's wechat as friends (id: lmbcxy) for convenient communications.
