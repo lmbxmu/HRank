@@ -81,6 +81,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 cudnn.benchmark = True
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -235,20 +236,18 @@ def test():
                 % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))#'''
 
 
-if len(args.gpu)>1:
-    convcfg = net.module.covcfg
-else:
-    convcfg = net.covcfg
-
-
 if args.arch=='vgg_16_bn':
-    for i, cov_id in enumerate(convcfg):
+
+    if len(args.gpu) > 1:
+        relucfg = net.module.relucfg
+    else:
+        relucfg = net.relucfg
+
+    for i, cov_id in enumerate(relucfg):
         cov_layer = net.features[cov_id]
         handler = cov_layer.register_forward_hook(get_feature_hook)
         test()
         handler.remove()
-
-        #print(feature_result)
 
         if not os.path.isdir('rank_conv/'+args.arch+'_limit%d'%(args.limit)):
             os.mkdir('rank_conv/'+args.arch+'_limit%d'%(args.limit))
@@ -324,7 +323,7 @@ elif args.arch=='densenet_40':
             handler = cov_layer.register_forward_hook(get_feature_hook_densenet)
             test()
             handler.remove()
-    
+
             np.save('rank_conv/' + args.arch +'_limit%d'%(args.limit) + '/rank_conv%d' % (13 * (i+1)) + '.npy', feature_result.numpy())
             feature_result = torch.tensor(0.)
             total = torch.tensor(0.)#'''
