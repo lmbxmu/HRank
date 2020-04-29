@@ -60,7 +60,7 @@ python main.py \
 --resume [pre-trained model dir] \
 --adjust_prune_ckpt \
 --arch vgg_16_bn \
---compress_rate [0.05]+[0.5]*6+[0.1]*4+[0.2]*2 \
+--compress_rate [0.95]+[0.5]*6+[0.9]*4+[0.8]*2 \
 --gpu [gpu_id]
 ```
 ##### 2. ResNet56
@@ -82,7 +82,7 @@ python main.py \
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|
-| 1.04M(39.4%) |148.70M(41.2%)| 94.23%   | 
+| 1.05M(38.7%) |156.90M(37.9%)| 94.23%   | 
 
 ```shell
 python main.py \

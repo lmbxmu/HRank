@@ -251,6 +251,7 @@ if args.arch=='vgg_16_bn':
         if not os.path.isdir('rank_conv/'+args.arch+'_limit%d'%(args.limit)):
             os.mkdir('rank_conv/'+args.arch+'_limit%d'%(args.limit))
         np.save('rank_conv/'+args.arch+'_limit%d'%(args.limit)+'/rank_conv' + str(i + 1) + '.npy', feature_result.numpy())
+
         feature_result = torch.tensor(0.)
         total = torch.tensor(0.)
 
