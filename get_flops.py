@@ -37,11 +37,14 @@ def get_layer_param(model, is_conv=True):
         for idx, param in enumerate(model.parameters()):
             assert idx<2
             f = param.size()[0]
-            c=param.size()[1]
             pruned_num = int(model.cp_rate * f)
-            if hasattr(model,'last_prune_num'):
-                last_prune_num=model.last_prune_num
-                total += (f - pruned_num) * (c-last_prune_num) * param.numel() / f / c
+            if len(param.size())>1:
+                c=param.size()[1]
+                if hasattr(model,'last_prune_num'):
+                    last_prune_num=model.last_prune_num
+                    total += (f - pruned_num) * (c-last_prune_num) * param.numel() / f / c
+                else:
+                    total += (f - pruned_num) * param.numel() / f
             else:
                 total += (f - pruned_num) * param.numel() / f
         return total
@@ -64,7 +67,7 @@ def measure_layer(layer, x, print_name):
                     layer.stride[1] + 1)
         pruned_num = int(layer.cp_rate * layer.out_channels)
 
-        if 'trans' in layer.tmp_name:
+        if hasattr(layer,'tmp_name') and 'trans' in layer.tmp_name:
             delta_ops = (layer.in_channels-layer.last_prune_num) * (layer.out_channels - pruned_num) * layer.kernel_size[0] * \
                         layer.kernel_size[1] * out_h * out_w / layer.groups * multi_add
         else:
