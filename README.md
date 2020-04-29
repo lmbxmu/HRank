@@ -79,11 +79,11 @@ python main.py \
 --gpu [gpu_id]
 ```
 ##### 3. ResNet110 
-Note that, in the paper, we mistakenly regarded the FLOPs as 148.70M(41.2%). We will update the arXiv version as soon as possible.
+Note that, in the paper, we mistakenly regarded the FLOPs as 148.70M(41.2%). We apologize for it and We will update the arXiv version as soon as possible.
 
 |  Params      | Flops        | Accuracy |
 |--------------|--------------|----------|  
-| 1.05M(38.7%) |156.90M(37.9%)| 94.23%   | 
+| 1.04M(38.7%) |156.90M(37.9%)| 94.23%   | 
 
 ```shell
 python main.py \
