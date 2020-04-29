@@ -248,6 +248,8 @@ if args.arch=='vgg_16_bn':
         test()
         handler.remove()
 
+        #print(feature_result)
+
         if not os.path.isdir('rank_conv/'+args.arch+'_limit%d'%(args.limit)):
             os.mkdir('rank_conv/'+args.arch+'_limit%d'%(args.limit))
         np.save('rank_conv/'+args.arch+'_limit%d'%(args.limit)+'/rank_conv' + str(i + 1) + '.npy', feature_result.numpy())
@@ -277,7 +279,7 @@ elif args.arch=='resnet_56':
             handler = cov_layer.register_forward_hook(get_feature_hook)
             test()
             handler.remove()
-            np.save('rank_conv/' + args.arch+'_convwise' +'_limit%d'%(args.limit)+ '/rank_conv%d'%(cnt + 1)+'.npy', feature_result.numpy())
+            np.save('rank_conv/' + args.arch +'_limit%d'%(args.limit)+ '/rank_conv%d'%(cnt + 1)+'.npy', feature_result.numpy())
             cnt+=1
             feature_result = torch.tensor(0.)
             total = torch.tensor(0.)
@@ -286,7 +288,7 @@ elif args.arch=='resnet_56':
             handler = cov_layer.register_forward_hook(get_feature_hook)
             test()
             handler.remove()
-            np.save('rank_conv/' + args.arch+'_convwise' +'_limit%d'%(args.limit)+ '/rank_conv%d'%(cnt + 1)+'.npy', feature_result.numpy())
+            np.save('rank_conv/' + args.arch +'_limit%d'%(args.limit)+ '/rank_conv%d'%(cnt + 1)+'.npy', feature_result.numpy())
             cnt += 1
             feature_result = torch.tensor(0.)
             total = torch.tensor(0.)
