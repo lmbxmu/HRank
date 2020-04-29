@@ -47,6 +47,7 @@ python rank_generation.py \
 ### Model Training
 
 For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rate of every layer as belows:
+#### Attention! The actual pruning rates are much higher than these presented in the paper since we do not count the next-layer channel removal (For example, if 50 filters are removed in the first layer, then the corresponding 50 channels in the second-layer filters should be removed as well).
 
 ##### 1. VGG-16
 
@@ -78,11 +79,12 @@ python main.py \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4] \
 --gpu [gpu_id]
 ```
-##### 3. ResNet110
+##### 3. ResNet110 
+Note that, in the paper, we mistakenly regarded the FLOPs as 148.70M(41.2%). We apologize for it and We will update the arXiv version as soon as possible.
 
 |  Params      | Flops        | Accuracy |
-|--------------|--------------|----------|
-| 1.05M(38.7%) |156.90M(37.9%)| 94.23%   | 
+|--------------|--------------|----------|  
+| 1.04M(38.7%) |156.90M(37.9%)| 94.23%   | 
 
 ```shell
 python main.py \
