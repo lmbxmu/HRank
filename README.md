@@ -47,6 +47,7 @@ python rank_generation.py \
 ### Model Training
 
 For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rate of every layer as belows:
+#### Attention! The actual pruning rates are much higher than these presented in the paper since we do not count the next-layer channel removal (For example, if 50 filters are removed in the first layer, then the corresponding channels in the next-layer filters should be removed as well).
 
 ##### 1. VGG-16
 
