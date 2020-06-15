@@ -1,6 +1,9 @@
-# HRank: Filter Pruning using High-Rank Feature Map ([Link](https://128.84.21.199/abs/2002.10179))
+# HRank: Filter Pruning using High-Rank Feature Map ([Link](https://128.84.21.199/abs/2002.10179)).
 
 PyTorch implementation of HRank (CVPR 2020, Oral).
+
+
+We are developing a better version of HRank (in both fine-tuning efficiency and accuracy performance), codes of which will be released at [HRankPlus](https://github.com/lmbxmu/HRankPlus).
 
 
 
@@ -21,7 +24,7 @@ If you find HRank useful in your research, please consider citing:
 @inproceedings{lin2020hrank,   
   title     = {HRank: Filter Pruning using High-Rank Feature Map},
   author    = {Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Ling, Shao},
-  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
   year      = {2020}
 }
 ```
