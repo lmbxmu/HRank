@@ -2,9 +2,9 @@
 
 PyTorch implementation of HRank (CVPR 2020, Oral).
 
+This repository was what we used during the preparation of CVPR 2020. You can enjoy it!
 
-We are developing a better version of HRank (in both fine-tuning efficiency and accuracy performance), codes of which will be released at [HRankPlus](https://github.com/lmbxmu/HRankPlus).
-
+We are developing a better version of HRank (in both fine-tuning efficiency and accuracy performance), codes of which, along with the pruned models, training loggers and configurations, will be released at [HRankPlus](https://github.com/lmbxmu/HRankPlus). It is highly suggested! 
 
 
 <div align=center><img src="img/framework.jpeg" height = "60%" width = "70%"/></div>
@@ -14,18 +14,19 @@ Framework of HRank. In the left column, we ﬁrst use images to run through the 
 
 ## Tips
 
-Any problem, please contact the authors via emails: lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com, or adding the first author's wechat as friends (id: wxid_5kl8ikyeryk622 if you are using wechat) for convenient communications. Do not post issues with github as much as possible, just in case that I could not receive the emails from github thus ignore the posted issues.
+Any problem, please contact the authors via emails: lmbxmu@stu.xmu.edu.cn or ethan.zhangyc@gmail.com, or adding the first author's wechat as friends (id: linmb007 if you are using wechat) for convenient communications. Do not post issues with github as much as possible, just in case that I could not receive the emails from github thus ignore the posted issues.
 
 
 ## Citation
 If you find HRank useful in your research, please consider citing:
 
 ```
-@inproceedings{lin2020hrank,   
-  title     = {HRank: Filter Pruning using High-Rank Feature Map},
-  author    = {Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Ling, Shao},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year      = {2020}
+@inproceedings{lin2020hrank,
+  title={HRank: Filter Pruning using High-Rank Feature Map},
+  author={Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Shao, Ling},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={1529--1538},
+  year={2020}
 }
 ```
 
