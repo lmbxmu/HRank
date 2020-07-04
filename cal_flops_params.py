@@ -47,6 +47,8 @@ if args.compress_rate:
     compress_rate=cprate
     print(compress_rate)
 
+if args.arch=='vgg_16_bn':
+    compress_rate[12]=0.
 
 print('==> Building model..')
 net = eval(args.arch)(compress_rate=compress_rate)
