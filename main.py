@@ -310,7 +310,7 @@ for cov_id in range(args.start_cov, len(convcfg)):
                 continue
             else:
                 pruned_checkpoint = torch.load(
-                    args.job_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(53) + '.pt')
+                    args.job_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(skip_list[skip_list.index(cov_id+1)-1]) + '.pt')
                 net.load_state_dict(pruned_checkpoint['state_dict'])
         else:
             if len(args.gpu) == 1:
