@@ -114,15 +114,6 @@ if len(args.gpu)>1:
 else:
     convcfg = net.covcfg
 
-param_per_cov_dic={
-    'vgg_16_bn': 4,
-    'densenet_40': 3,
-    'googlenet': 28,
-    'resnet_50':3,
-    'resnet_56':3,
-    'resnet_110':3
-}
-
 cov_id=len(convcfg)
 new_state_dict = OrderedDict()
 pruned_checkpoint = torch.load(args.test_model_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(cov_id) + '.pt',
