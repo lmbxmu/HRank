@@ -281,7 +281,7 @@ for cov_id in range(args.start_cov, len(convcfg)):
     if cov_id == 0:
 
         if len(args.gpu)==1:
-            pruned_checkpoint = torch.load(args.resume, map_location='cuda' + args.gpu)
+            pruned_checkpoint = torch.load(args.resume, map_location='cuda:' + args.gpu)
         else:
             pruned_checkpoint = torch.load(args.resume)
         from collections import OrderedDict
