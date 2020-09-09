@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 
 
 class Data:
-    def __init__(self, args):
+    def __init__(self, args, is_evaluate=False):
         pin_memory = False
         if args.gpu is not None:
             pin_memory = True
@@ -17,22 +17,23 @@ class Data:
         normalize = transforms.Normalize(
             mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
-        trainset = datasets.ImageFolder(
-            traindir,
-            transforms.Compose([
-                transforms.RandomResizedCrop(224),
-                transforms.RandomHorizontalFlip(),
-                transforms.Resize(scale_size),
-                transforms.ToTensor(),
-                normalize,
-            ]))
+        if not is_evaluate:
+            trainset = datasets.ImageFolder(
+                traindir,
+                transforms.Compose([
+                    transforms.RandomResizedCrop(224),
+                    transforms.RandomHorizontalFlip(),
+                    transforms.Resize(scale_size),
+                    transforms.ToTensor(),
+                    normalize,
+                ]))
 
-        self.loader_train = DataLoader(
-            trainset,
-            batch_size=args.train_batch_size,
-            shuffle=True,
-            num_workers=2,
-            pin_memory=pin_memory)
+            self.loader_train = DataLoader(
+                trainset,
+                batch_size=args.train_batch_size,
+                shuffle=True,
+                num_workers=2,
+                pin_memory=pin_memory)
 
         testset = datasets.ImageFolder(
             valdir,
