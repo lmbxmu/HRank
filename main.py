@@ -39,10 +39,6 @@ parser.add_argument(
     type=str,
     help='learning rate decay step')
 parser.add_argument(
-    '--adjust_prune_ckpt',
-    action='store_true',
-    help='adjust ckpt from pruned checkpoint')
-parser.add_argument(
     '--resume',
     type=str,
     default=None,
@@ -96,10 +92,10 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-#os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 if len(args.gpu)==1:
-    device = torch.device("cuda:"+args.gpu if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 else:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -280,27 +276,20 @@ for cov_id in range(args.start_cov, len(convcfg)):
 
     if cov_id == 0:
 
-        if len(args.gpu)==1:
-            pruned_checkpoint = torch.load(args.resume, map_location='cuda:' + args.gpu)
-        else:
-            pruned_checkpoint = torch.load(args.resume)
+        pruned_checkpoint = torch.load(args.resume, map_location='cuda:0')
         from collections import OrderedDict
-
         new_state_dict = OrderedDict()
-        if args.adjust_prune_ckpt:
-            if args.arch == 'resnet_50':
-                tmp_ckpt = pruned_checkpoint
-            else:
-                tmp_ckpt = pruned_checkpoint['state_dict']
-
-            if len(args.gpu) > 1:
-                for k, v in tmp_ckpt.items():
-                    new_state_dict['module.' + k.replace('module.', '')] = v
-            else:
-                for k, v in tmp_ckpt.items():
-                    new_state_dict[k.replace('module.', '')] = v
+        if args.arch == 'resnet_50':
+            tmp_ckpt = pruned_checkpoint
         else:
-            new_state_dict = pruned_checkpoint['state_dict']
+            tmp_ckpt = pruned_checkpoint['state_dict']
+
+        if len(args.gpu) > 1:
+            for k, v in tmp_ckpt.items():
+                new_state_dict['module.' + k.replace('module.', '')] = v
+        else:
+            for k, v in tmp_ckpt.items():
+                new_state_dict[k.replace('module.', '')] = v
 
         net.load_state_dict(new_state_dict)#'''
     else:

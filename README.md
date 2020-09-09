@@ -63,7 +63,6 @@ For the ease of reproducibility. we provide some of the experimental results and
 python main.py \
 --job_dir ./result/vgg_16_bn/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch vgg_16_bn \
 --compress_rate [0.95]+[0.5]*6+[0.9]*4+[0.8]*2 \
 --gpu [gpu_id]
@@ -78,7 +77,6 @@ python main.py \
 python main.py \
 --job_dir ./result/resnet_56/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch resnet_56 \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4] \
 --gpu [gpu_id]
@@ -94,7 +92,6 @@ Note that, in the paper, we mistakenly regarded the FLOPs as 148.70M(41.2%). We 
 python main.py \
 --job_dir ./result/resnet_110/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch resnet_110 \
 --compress_rate [0.1]+[0.40]*36+[0.40]*36+[0.4]*36 \
 --gpu [gpu_id]
@@ -109,7 +106,6 @@ python main.py \
 python main.py \
 --job_dir ./result/densenet_40/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch densenet_40 \
 --compress_rate [0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*6+[0.0]+[0.1]*6+[0.7]*5+[0.0] \
 --gpu [gpu_id]
@@ -124,7 +120,6 @@ python main.py \
 python main.py \
 --job_dir ./result/googlenet/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch googlenet \
 --compress_rate [0.10]+[0.8]*5+[0.85]+[0.8]*3 \
 --gpu [gpu_id]
@@ -141,13 +136,10 @@ python main.py \
 --data_dir [ImageNet dataset dir] \
 --job_dir./result/resnet_50/[folder name] \
 --resume [pre-trained model dir] \
---adjust_prune_ckpt \
 --arch resnet_50 \
 --compress_rate [0.2]+[0.8]*10+[0.8]*13+[0.55]*19+[0.45]*10 \
 --gpu [gpu_id]
 ```
-
-For multi-GPU training, make sure that CUDA\_VISIBLE\_DEVICES is being set at the very beginning.
 
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
 
@@ -156,6 +148,16 @@ After training, checkpoints and loggers can be found in the `job_dir`. The prune
 python cal_flops_params.py \
 --arch resnet_56_convwise \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]
+```
+
+### Evaluate Final Performance
+```shell
+python evaluate.py \
+--dataset [dataset name] \
+--data_dir [dataset dir] \
+--test_model_dir [job dir of test model] \
+--arch [arch name] \
+--gpu [gpu id]
 ```
 
 
@@ -171,7 +173,6 @@ optional arguments:
     				default: 0.01
     --lr_decay_step		learning rate decay step
 				default: 5,10
-    --adjust_prune_ckpt		adjust ckpt from pruned checkpoint
     --resume			load the model from the specified checkpoint
     --resume_mask		mask loading directory
     --gpu			Select gpu to use

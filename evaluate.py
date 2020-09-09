@@ -125,14 +125,13 @@ param_per_cov_dic={
 
 cov_id=len(convcfg)
 new_state_dict = OrderedDict()
+pruned_checkpoint = torch.load(args.test_model_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(cov_id) + '.pt',
+                               map_location='cuda:0')
+tmp_ckpt = pruned_checkpoint['state_dict']
 if len(args.gpu) == 1:
-    pruned_checkpoint = torch.load(args.test_model_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(cov_id) + '.pt', map_location='cuda:' + args.gpu)
-    tmp_ckpt = pruned_checkpoint['state_dict']
     for k, v in tmp_ckpt.items():
         new_state_dict[k.replace('module.', '')] = v
 else:
-    pruned_checkpoint = torch.load(args.test_model_dir + "/pruned_checkpoint/" + args.arch + "_cov" + str(cov_id) + '.pt')
-    tmp_ckpt = pruned_checkpoint['state_dict']
     for k, v in tmp_ckpt.items():
         new_state_dict['module.' + k.replace('module.', '')] = v
 net.load_state_dict(new_state_dict)
