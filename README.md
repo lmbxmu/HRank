@@ -24,7 +24,7 @@ If you find HRank useful in your research, please consider citing:
 @inproceedings{lin2020hrank,
   title={HRank: Filter Pruning using High-Rank Feature Map},
   author={Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Shao, Ling},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   pages={1529--1538},
   year={2020}
 }
