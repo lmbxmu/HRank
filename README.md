@@ -4,7 +4,7 @@ Pytorch implementation of HRank (CVPR 2020, Oral).
 
 This repository was what we used during the preparation of CVPR 2020. You can enjoy it!
 
-We are developing a better version of HRank (in both fine-tuning efficiency and accuracy performance), codes of which, along with the pruned models, training loggers and configurations, will be released at [HRankPlus](https://github.com/lmbxmu/HRankPlus). It is highly suggested! 
+A better version of HRank (in both fine-tuning efficiency and accuracy performance) are released at [HRankPlus](https://github.com/lmbxmu/HRankPlus). It is highly suggested! 
 
 
 <div align=center><img src="img/framework.jpeg" height = "60%" width = "70%"/></div>
